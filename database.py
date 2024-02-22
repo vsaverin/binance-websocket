@@ -1,14 +1,16 @@
+import os
+
 from clickhouse_driver import Client
 
 
 class ClickHouseWriter:
     def __init__(self):
         self.clickhouse_client = Client(
-            host="clickhouse-server",
-            port=9000,
-            user="main",
-            password="localpassword",
-            database="localpassword",
+            host=os.environ.get("CLICK_HOST"),
+            port=os.environ.get("CLICK_PORT"),
+            user=os.environ.get("CLICK_USER"),
+            password=os.environ.get("CLICK_PASSWORD"),
+            database=os.environ.get("CLICK_DATABASE"),
         )
 
     async def write_data(self, data):

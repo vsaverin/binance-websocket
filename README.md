@@ -21,7 +21,7 @@ This Python code provides an asynchronous WebSocket client for interacting with 
 1. Import the necessary modules:
 
     ```python
-    from binance_client import BinanceAsyncWebSocket
+    from src.binance_client import BinanceAsyncWebSocket
     ```
 
 2. Create an instance of the `BinanceAsyncWebSocket` class, providing the symbol (e.g., "BTCUSDT") and optional interval (default is "1m"):

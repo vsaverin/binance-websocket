@@ -16,7 +16,7 @@ class ClickHouseWriter:
     async def write_data(self, data: dict) -> None:
         try:
             query = (
-                f"INSERT INTO your_table "
+                f"INSERT INTO btc_data "
                 f"(Symbol, Time, Open, High, Low, Close) "
                 f"VALUES "
                 f"('{data['Symbol']}', {data['Time']}, {data['Open']}, "
@@ -27,4 +27,4 @@ class ClickHouseWriter:
             return
 
     async def execute_query(self, query: str) -> None:
-        await self.clickhouse_client.execute(query)
+        self.clickhouse_client.execute(query)

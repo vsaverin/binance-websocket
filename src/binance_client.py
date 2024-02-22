@@ -30,7 +30,10 @@ class BinanceAsyncWebSocket:
         if not kline:
             return
         data = self._parse_kline(kline)
-        await self.database.write_data(data)
+        try:
+            await self.database.write_data(data)
+        except Exception:
+            return
 
     async def connect(self) -> None:
         self.connection = await websockets.connect(self.uri)

@@ -9,21 +9,11 @@ services:
       - "9000:9000"
     networks:
       - local
+    user: "clickhouse:clickhouse"
+    volumes:
+      - ./config/users.xml:/etc/clickhouse-server/users.xml
 
-  clickhouse-client:
-    image: yandex/clickhouse-client
-    container_name: clickhouse-client
-    depends_on:
-      - clickhouse-server
-    command: ["--host", "clickhouse-server"]
-    links:
-      - clickhouse-server
-    stdin_open: true
-    tty: true
-    networks:
-      - local
-
-  images_publisher_worker:
+  binance_client:
     build:
       context: .
       dockerfile: ./Dockerfile

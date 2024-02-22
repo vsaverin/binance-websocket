@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  clickhouse-server:
+    image: yandex/clickhouse-server
+    container_name: clickhouse-server
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+
+  clickhouse-client:
+    image: yandex/clickhouse-client
+    container_name: clickhouse-client
+    depends_on:
+      - clickhouse-server
+    command: ["--host", "clickhouse-server"]
+    links:
+      - clickhouse-server
+    stdin_open: true
+    tty: true
+
+  clickhouse-web:
+    image: yandex/clickhouse-web
+    container_name: clickhouse-web
+    ports:
+      - "8124:8123"
+    environment:
+      - CLICKHOUSE_HOSTS=http://clickhouse-server:8123

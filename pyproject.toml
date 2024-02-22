@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "binance-websocket"
+version = "0.1.0"
+description = ""
+authors = ["vsaverin <vasiliy.saverin@gmail.com>"]
+readme = "README.md"
+packages = [{include = "binance_websocket"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+plotly = "^5.19.0"
+websocket-client = "^1.7.0"
+clickhouse-driver = "^0.2.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

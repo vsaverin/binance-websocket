@@ -13,16 +13,18 @@ class ClickHouseWriter:
             database=os.environ.get("CLICK_DATABASE"),
         )
 
-    async def write_data(self, data):
-        query = (
-            f"INSERT INTO your_table "
-            f"(Symbol, Time, Open, High, Low, Close) "
-            f"VALUES "
-            f"('{data['Symbol']}', {data['Time']}, {data['Open']}, "
-            f"{data['High']}, {data['Low']}, {data['Close']})"
-        )
+    async def write_data(self, data: dict) -> None:
+        try:
+            query = (
+                f"INSERT INTO your_table "
+                f"(Symbol, Time, Open, High, Low, Close) "
+                f"VALUES "
+                f"('{data['Symbol']}', {data['Time']}, {data['Open']}, "
+                f"{data['High']}, {data['Low']}, {data['Close']})"
+            )
+            await self.execute_query(query)
+        except KeyError:
+            return
 
-        await self.execute_query(query)
-
-    async def execute_query(self, query):
+    async def execute_query(self, query: str) -> None:
         await self.clickhouse_client.execute(query)

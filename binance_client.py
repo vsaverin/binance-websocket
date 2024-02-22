@@ -5,11 +5,10 @@ from database import ClickHouseWriter
 
 
 class BinanceAsyncWebSocket:
-    def __init__(self, symbol, interval="1m", candlestick_chart=None):
+    def __init__(self, symbol, interval="1m"):
         self.base_url = "wss://stream.binance.com:9443/ws/"
         self.symbol = symbol.lower() + "@kline_" + interval
         self.uri = self.base_url + self.symbol
-        self.candlestick_chart = candlestick_chart
         self.connection = None
         self.database = ClickHouseWriter()
 

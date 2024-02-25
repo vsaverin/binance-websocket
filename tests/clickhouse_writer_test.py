@@ -14,8 +14,7 @@ def mock_clickhouse_client(monkeypatch):
         pass
 
     monkeypatch.setattr(
-        ClickHouseWriter, "execute_query", AsyncMock(
-            side_effect=mock_execute)
+        ClickHouseWriter, "execute_query", AsyncMock(side_effect=mock_execute)
     )
     return ClickHouseWriter()
 

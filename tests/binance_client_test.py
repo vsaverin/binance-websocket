@@ -59,7 +59,14 @@ async def test_on_message_successful_write():
     binance_ws = BinanceAsyncWebSocket()
     symbol = "BTCUSDT"
     interval = "1m"
-    valid_kline_message = '{"k": {"t": 1645635912345, "o": 40000.0, "h": 40500.0, "l": 39800.0, "c": 40250.0}}'
+    valid_kline_message = (
+        '{"k": {'
+        '"t": 1645635912345, '
+        '"o": 40000.0, '
+        '"h": 40500.0, '
+        '"l": 39800.0, '
+        '"c": 40250.0}}'
+    )
     with patch.object(
         binance_ws.database, "write_data", new_callable=AsyncMock
     ) as mock_write_data:
@@ -78,9 +85,12 @@ async def test_connect():
 
         await binance_ws.connect(symbol, interval)
 
-        mock_connect.assert_called_once_with(binance_ws.base_url + f"{symbol.lower()}@kline_{interval}")
+        mock_connect.assert_called_once_with(
+            binance_ws.base_url + f"{symbol.lower()}@kline_{interval}"
+        )
         mock_connection.send.assert_called_once_with(
-            f'{{"method": "SUBSCRIBE", "params": ["{symbol.lower()}@kline_{interval}"], "id": 1}}'
+            f'{{"method": "SUBSCRIBE", '
+            f'"params": ["{symbol.lower()}@kline_{interval}"], "id": 1}}'
         )
 
 
